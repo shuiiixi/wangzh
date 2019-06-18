@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 第一步：适配页面 -->
+    <script>
+
+            ~ function () {
+                function computed() {
+                    var pcWidth = document.documentElement.clientWidth
+                    var des = 750;
+                    if (pcWidth > 750) {
+                        document.documentElement.style.fontSize = "100px";
+                        return;
+                    }
+                    document.documentElement.style.fontSize = pcWidth / des * 100 + "px";
+                }
+                computed()
+    
+            }();
+    </script>
+    <!-- 重置样式表 -->
+    <link rel="stylesheet" href="css/reset.css">
+    <!-- swiper插件中的swiper.min.css -->
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <!-- 动画库的样式 -->
+    <link rel="stylesheet" href="css/animate.min.css">
+    <!-- 这个是自己要写的css -->
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>  
+  <!-- 第二步骤：复制swiper的结构 -->
+        <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" id="page1">
+                        <!-- 第一页的内容 -->
+                        <img class="desk ani" 
+                        swiper-animate-effect="fadeInRight" swiper-animate-duration="1s" swiper-animate-delay="0s"
+                        src="images/desk.png" alt="">
+
+
+                        <img class="zhi ani" src="images/zhi.png" 
+                        swiper-animate-effect="zoomIn" swiper-animate-duration="1s" swiper-animate-delay="1s"
+                        alt="">
+                        <img class="shiqu ani" src="images/shiqu.png"
+                        swiper-animate-effect="rotateInDownRight" swiper-animate-duration="1s" swiper-animate-delay="2s"
+                        alt="">
+                        <img class="qingchun ani" src="images/qingchun.png" swiper-animate-effect="zoomIn" swiper-animate-duration="1s" swiper-animate-delay="3s" alt="">
+                        <img class="peoples ani" src="images/peoples.png" swiper-animate-effect="fadeInUp" swiper-animate-duration="1s" swiper-animate-delay="0s" alt="">
+                    </div>
+                    <div class="swiper-slide" id="page2">
+                        <!-- 第二页 -->
+                    </div>
+                    <div class="swiper-slide" id="page3">
+                        <!-- 第三页 -->
+
+                    </div>
+                    
+                </div>
+               
+                <!-- 如果需要导航按钮 -->
+                <div class="swiper-button-next" id="next"></div>
+            </div>
+</body>
+</html>
+<!-- 第一步：连接swiper中的js -->
+<script src="js/swiper.min.js"></script>
+<!-- 动画库的js -->
+<script src="js/swiper.animate.min.js"></script>
+
+<script>
+  // 第三步骤：初始化swiper 插件
+ window.onload=function(){
+    var mySwiper = new Swiper ('.swiper-container', {
+    direction: 'vertical', // 垂直切换选项
+    loop: true, // 循环模式选项
+    // 如果需要前进后退按钮
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    on:{
+      init: function(){
+        swiperAnimateCache(this); //隐藏动画元素 
+        swiperAnimate(this); //初始化完成开始动画
+      }, 
+      slideChangeTransitionEnd: function(){ 
+        swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+        //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); 动画只展现一次，去除ani类名
+      } 
+    }
+    
+  })        
+ }
+</script>
